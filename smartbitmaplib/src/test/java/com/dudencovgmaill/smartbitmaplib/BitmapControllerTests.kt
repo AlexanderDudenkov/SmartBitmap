@@ -11,10 +11,10 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28])
+@Config(sdk = [/*16, 17, 18, 19, 21, 22, 23,*/ 24/*, 25, 26, 27, 28*/])
 class BitmapControllerTests {
 
-    private var subject: IBitmapController? = null
+    private var subject: BitmapController? = null
 
     @Before
     fun setUp() {
@@ -32,7 +32,7 @@ class BitmapControllerTests {
         val exp: Byte = 1
         val input = ByteArray(1) { exp }
         val act =
-            subject?.addBytesToEnd(Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888), input)?.toByteArray()
+            subject?.insert(Bitmap.createBitmap(1000, 1000, Bitmap.Config.RGB_565), input)?.toByteArray()
                 ?.lastOrNull()
                 ?.toInt()
 

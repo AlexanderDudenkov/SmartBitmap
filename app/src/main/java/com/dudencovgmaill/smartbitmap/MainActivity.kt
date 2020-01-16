@@ -1,19 +1,16 @@
 package com.dudencovgmaill.smartbitmap
 
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
+import androidx.appcompat.app.AppCompatActivity
 import com.dudencovgmaill.smartbitmaplib.BitmapController
-import com.dudencovgmaill.smartbitmaplib.IBitmapController
-import com.dudencovgmaill.smartbitmaplib.Model
-import com.dudencovgmaill.smartbitmaplib.util.marshall
-import com.dudencovgmaill.smartbitmaplib.util.unmarshall
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val bmpController: IBitmapController =
-        BitmapController()
+    private val bmpController: BitmapController = BitmapController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,19 +21,39 @@ class MainActivity : AppCompatActivity() {
 
     private fun run() {
 
-        val title = String(CharArray(10000){'w'})
-        val name = String(CharArray(10000){'h'})
-        val age = 1
+        val data = String(CharArray(1000000) { 'w' })
 
         //val bmp1 = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
         val bmp1 = Bitmap.createBitmap(500, 500, Bitmap.Config.RGB_565)
-        val bmp2 = Model(title, name, age).marshall()
-            ?.let { bmpController.addBytesToEnd(bmp1, it) }
+        val bmp2: Bitmap? = bmpController.insert(bmp1, Model(data))
 
         iv1?.setImageBitmap(bmp2)
         iv2?.setImageBitmap(bmp1)
 
-        val act = bmpController.extractBytes(bmp2!!)?.unmarshall(Model::class.java)
-        tv?.text = "exp:$title, $name, $age; act:${act?.title}, ${act?.name}, ${act?.age}"
+        val act: Model? = bmpController.extractObject(bmp2!!, Model::class.java)
+        tv?.text = "exp:$data; act:${act?.data}"
+    }
+
+    private data class Model(val data: String?) : Parcelable {
+
+        constructor(parcel: Parcel) : this(parcel.readString())
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(data)
+        }
+
+        override fun describeContents(): Int {
+            return hashCode()
+        }
+
+        companion object CREATOR : Parcelable.Creator<Model> {
+            override fun createFromParcel(parcel: Parcel): Model {
+                return Model(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Model?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 }
