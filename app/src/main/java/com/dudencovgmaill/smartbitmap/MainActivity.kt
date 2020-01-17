@@ -21,14 +21,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun run() {
 
-        val data = String(CharArray(1000000) { 'w' })
+        val data = String(CharArray(2) { 'w' })
 
         //val bmp1 = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
         val bmp1 = Bitmap.createBitmap(500, 500, Bitmap.Config.RGB_565)
         val bmp2: Bitmap? = bmpController.insert(bmp1, Model(data))
 
-        iv1?.setImageBitmap(bmp2)
-        iv2?.setImageBitmap(bmp1)
+        iv?.setImageBitmap(bmp2)
+
 
         val act: Model? = bmpController.extractObject(bmp2!!, Model::class.java)
         tv?.text = "exp:$data; act:${act?.data}"

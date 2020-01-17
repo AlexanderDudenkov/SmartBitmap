@@ -1,7 +1,8 @@
 package com.dudencovgmaill.smartbitmaplib
 
 import android.graphics.Bitmap
-import com.dudencovgmaill.smartbitmaplib.util.toByteArray
+import android.os.Parcel
+import android.os.Parcelable
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -27,15 +28,47 @@ class BitmapControllerTests {
     }
 
     @Test
-    fun addBytesToEndTest() {
+    fun `insert bytes into bmp`() {
 
-        val exp: Byte = 1
-        val input = ByteArray(1) { exp }
-        val act =
-            subject?.insert(Bitmap.createBitmap(1000, 1000, Bitmap.Config.RGB_565), input)?.toByteArray()
-                ?.lastOrNull()
-                ?.toInt()
+        val exp: ByteArray = ByteArray(1) { 1 }
+        val bmpWithExtraByte =
+            subject?.insert(Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888), exp)
+        val act: ByteArray? = subject?.extractBytes(bmpWithExtraByte!!)
+
+        Assert.assertArrayEquals(exp, act)
+    }
+
+    @Test
+    fun `insert object into bmp`() {
+
+        val exp: String = String(CharArray(2) { 'w' })
+        val bmpWithExtraByte =
+            subject?.insert(Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888), Model(exp))
+        val act: String? = subject?.extractObject(bmpWithExtraByte!!, Model::class.java)?.data
 
         Assert.assertEquals(exp, act)
+    }
+
+    private data class Model(val data: String?) : Parcelable {
+
+        constructor(parcel: Parcel) : this(parcel.readString())
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(data)
+        }
+
+        override fun describeContents(): Int {
+            return hashCode()
+        }
+
+        companion object CREATOR : Parcelable.Creator<Model> {
+            override fun createFromParcel(parcel: Parcel): Model {
+                return Model(parcel)
+            }
+
+            override fun newArray(size: Int): Array<Model?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 }
