@@ -1,3 +1,4 @@
+/*
 package com.dudencovgmaill.smartbitmaplib.util
 
 import android.os.Parcel
@@ -10,7 +11,11 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [/*16, 17, 18, 19, 21, 22, 23,*/ 24/*, 25, 26, 27, 28*/])
+@Config(sdk = [*/
+/*16, 17, 18, 19, 21, 22, 23,*//*
+ 24*/
+/*, 25, 26, 27, 28*//*
+])
 class ExtTests {
 
     @Test
@@ -62,4 +67,4 @@ class ExtTests {
             }
         }
     }
-}
+}*/

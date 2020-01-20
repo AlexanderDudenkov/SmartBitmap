@@ -1,3 +1,4 @@
+@file:JvmName("bmp_ext")
 package com.dudencovgmaill.smartbitmaplib.util
 
 import android.graphics.Bitmap
@@ -8,7 +9,7 @@ import java.nio.ByteBuffer
  * Return bitmap bytes from bitmap.
  * */
 @Throws(BufferUnderflowException::class)
-fun Bitmap.toByteArray(): ByteArray? {
+fun Bitmap.toByteArray(): ByteArray {
 
     val size: Int = byteCount
     val buffer = ByteBuffer.allocate(size)

@@ -15,11 +15,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        instance = this
 
         run()
     }
 
-    private fun run() {
+     fun run() {
 
         val data = String(CharArray(2) { 'w' })
 
@@ -55,5 +56,9 @@ class MainActivity : AppCompatActivity() {
                 return arrayOfNulls(size)
             }
         }
+    }
+
+    companion object {
+        lateinit var instance: MainActivity
     }
 }
