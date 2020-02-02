@@ -1,37 +1,54 @@
 package com.dudencovgmaill.smartbitmap
 
-import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
-import com.dudencovgmaill.smartbitmaplib.BitmapController
+import com.dudencovgmaill.smartbitmaplib.FileController
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
-    private val bmpController: BitmapController = BitmapController()
+    private val bmpController: FileController = FileController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        instance = this
 
-        run()
+        test()
     }
 
-     fun run() {
+    fun test() {
 
-        val data = String(CharArray(2) { 'w' })
+        val file =
+            File(Environment.getExternalStorageDirectory(), "/DCIM/Camera/20200123_165116.jpg")
 
-        //val bmp1 = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
-        val bmp1 = Bitmap.createBitmap(500, 500, Bitmap.Config.RGB_565)
-        val bmp2: Bitmap? = bmpController.insert(bmp1, Model(data))
+        val data = ByteArray(100) { 100 }
+        var act: ByteArray? = null
 
-        iv?.setImageBitmap(bmp2)
+        bmpController.run {
+            val res = insert(file, data)
+            if (res != null) act = extractBytes(res)
+        }
 
+        tv?.text = if (data.contentEquals(act ?: ByteArray(0))) "the same" else "not the same"
+    }
 
-        val act: Model? = bmpController.extractObject(bmp2!!, Model::class.java)
+    fun test2() {
+
+        val file =
+            File(Environment.getExternalStorageDirectory(), "/DCIM/Camera/20200123_165116.jpg")
+
+        val data = "data"
+        var act: Model? = null
+
+        bmpController.run {
+            val res = insert(file, Model(data))
+            if (res != null) act = extractObject(res,Model::class.java)
+        }
+
         tv?.text = "exp:$data; act:${act?.data}"
     }
 
@@ -56,9 +73,5 @@ class MainActivity : AppCompatActivity() {
                 return arrayOfNulls(size)
             }
         }
-    }
-
-    companion object {
-        lateinit var instance: MainActivity
     }
 }

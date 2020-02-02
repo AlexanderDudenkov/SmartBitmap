@@ -2,6 +2,8 @@ package com.dudencovgmaill.smartbitmaplib.util
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 
 /**
  * Transform the object to the byte array.
@@ -39,4 +41,20 @@ fun <T : Parcelable> ByteArray.unmarshall(anyClass: Class<T>): T? {
     }
 
     return any
+}
+
+/**
+ * Return bytes from the integer.
+ * */
+fun Int.bytes(): ByteArray = ByteBuffer.allocate(Int.SIZE_BYTES).let {
+    it.order(ByteOrder.LITTLE_ENDIAN)
+    it.putInt(this).array()
+}
+
+/**
+ * Return the integer from it bytes.
+ * */
+fun ByteArray.toInt(): Int = ByteBuffer.wrap(this).let {
+    it.order(ByteOrder.LITTLE_ENDIAN)
+    it.int
 }
