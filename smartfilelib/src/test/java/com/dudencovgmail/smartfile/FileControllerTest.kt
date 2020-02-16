@@ -1,7 +1,7 @@
-package com.dudencovgmaill.smartbitmap
+package com.dudencovgmail.smartfile
 
-import com.dudencovgmaill.smartbitmaplib.FileController
-import com.dudencovgmaill.smartbitmaplib.IFileController
+import com.dudencovgmail.smartfilelib.FileController
+import com.dudencovgmail.smartfilelib.IFileController
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.*

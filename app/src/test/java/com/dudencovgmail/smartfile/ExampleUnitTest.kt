@@ -1,4 +1,4 @@
-package com.dudencovgmaill.smartbitmap
+package com.dudencovgmail.smartfile
 
 import org.junit.Test
 

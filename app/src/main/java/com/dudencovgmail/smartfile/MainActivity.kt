@@ -1,4 +1,4 @@
-package com.dudencovgmaill.smartbitmap
+package com.dudencovgmail.smartfile
 
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.pm.PackageManager
@@ -11,8 +11,8 @@ import androidx.annotation.IntRange
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.dudencovgmaill.smartbitmaplib.FileController
-import com.dudencovgmaill.smartbitmaplib.IFileController
+import com.dudencovgmail.smartfilelib.FileController
+import com.dudencovgmail.smartfilelib.IFileController
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 

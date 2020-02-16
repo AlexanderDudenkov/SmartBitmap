@@ -1,7 +1,7 @@
-package com.dudencovgmaill.smartbitmaplib
+package com.dudencovgmail.smartfilelib
 
 import android.os.Parcelable
-import com.dudencovgmaill.smartbitmaplib.util.*
+import com.dudencovgmail.smartfilelib.util.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException

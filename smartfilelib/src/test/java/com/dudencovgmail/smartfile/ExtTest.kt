@@ -1,6 +1,6 @@
-package com.dudencovgmaill.smartbitmap
+package com.dudencovgmail.smartfile
 
-import com.dudencovgmaill.smartbitmaplib.util.read
+import com.dudencovgmail.smartfilelib.util.read
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertFalse

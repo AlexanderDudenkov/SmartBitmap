@@ -1,4 +1,4 @@
-package com.dudencovgmaill.smartbitmaplib.util
+package com.dudencovgmail.smartfilelib.util
 
 import android.os.Parcel
 import android.os.Parcelable
