@@ -1,2 +1,2 @@
-include ':app', ':smartbitmaplib'
-rootProject.name='SmartBitmap'
+include ':app', ':smartfilelib'
+rootProject.name='SmartFile'
